@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -10,65 +11,11 @@
 
 <AnchorPane fx:id="addNewAccountAnchorPane" prefHeight="535.0" prefWidth="551.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddNewAccountController">
    <children>
-      <VBox layoutX="3.0" layoutY="154.0" prefHeight="242.0" prefWidth="623.0">
-         <children>
-            <Pane prefHeight="50.0" prefWidth="623.0" />
-            <HBox alignment="CENTER" prefHeight="23.0" prefWidth="534.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="150.0" text="Account Address" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="addressTextFiled" prefHeight="25.0" prefWidth="440.0" styleClass="inputComposeTextFiled" stylesheets="@CSS/MainStylesheet.css">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                  </TextField>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="23.0" prefWidth="534.0">
-               <children>
-                  <Label prefWidth="150.0" text="Account Password" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="passwordTextFiled" prefHeight="25.0" prefWidth="440.0" styleClass="inputComposeTextFiled" stylesheets="@CSS/MainStylesheet.css">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                  </TextField>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="534.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#AddAttachmentAction" prefHeight="76.0" prefWidth="600.0" styleClass="btnCompose" stylesheets="@CSS/MainStylesheet.css" text="Add Account">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
       <VBox layoutX="-6.0" layoutY="70.0" prefHeight="95.0" prefWidth="628.0">
          <children>
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="628.0">
                <children>
-                  <Label prefHeight="40.0" prefWidth="310.0" text=" Mail Client App" textFill="WHITE">
+                  <Label prefHeight="45.0" prefWidth="221.0" text=" Mail Client App" textFill="WHITE">
                      <font>
                         <Font name="Castellar" size="30.0" />
                      </font>
@@ -84,6 +31,55 @@
                   </Label>
                </children>
             </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="73.0" layoutY="209.0" prefHeight="242.0" prefWidth="503.0">
+         <children>
+            <HBox prefHeight="31.0" prefWidth="503.0" styleClass="registerBox" stylesheets="@CSS/MainStylesheet.css">
+               <children>
+                  <ComboBox fx:id="AccountType" prefHeight="34.0" prefWidth="503.0" promptText="Select Account" stylesheets="@CSS/MainStylesheet.css" />
+               </children>
+            </HBox>
+            <HBox prefHeight="31.0" prefWidth="503.0" styleClass="registerBox" stylesheets="@CSS/MainStylesheet.css">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/user.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="usernameTextFiled" prefHeight="40.0" prefWidth="473.0" promptText="Enter your address" styleClass="registerTextFiled" stylesheets="@CSS/MainStylesheet.css" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="31.0" prefWidth="503.0" styleClass="registerBox" stylesheets="@CSS/MainStylesheet.css">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/forgotPassword.png" />
+                     </image>
+                  </ImageView>
+                  <PasswordField fx:id="passwordTextFiled" prefHeight="63.0" prefWidth="473.0" promptText="Enter your password" styleClass="registerTextFiled" stylesheets="@CSS/MainStylesheet.css" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#AddNewAccount" prefHeight="47.0" prefWidth="503.0" styleClass="btnCompose" stylesheets="@CSS/MainStylesheet.css" text="Add new account" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
    </children>

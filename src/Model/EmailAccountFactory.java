@@ -17,8 +17,10 @@ public class EmailAccountFactory implements EmailAccountAbstractFactory<EmailAcc
 
     @Override
     public EmailAccountBean createEmailAccount() {
-        if (type.equalsIgnoreCase("gmail"))
+        if (type.equalsIgnoreCase("gmail")){
+            System.out.println("Create Gmail Account");
             return new GmailAccount(emailAddress,emailPassword);
+        }
         else if(type.equalsIgnoreCase("outlook"))
             return new OutlookAccount(emailAddress,emailPassword);
         else
