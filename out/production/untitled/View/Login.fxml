@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="loginAnchorPane" prefHeight="535.0" prefWidth="551.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+   <children>
+      <VBox layoutX="1.0" layoutY="104.0" prefHeight="95.0" prefWidth="628.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="46.0" prefWidth="628.0">
+               <children>
+                  <Label text=" Mail Client App" textFill="WHITE">
+                     <font>
+                        <Font name="Castellar" size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="628.0">
+               <children>
+                  <Label prefHeight="34.0" prefWidth="72.0" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="Sitka Display" size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="63.0" layoutY="199.0" prefHeight="184.0" prefWidth="503.0">
+         <children>
+            <HBox prefHeight="31.0" prefWidth="503.0" styleClass="registerBox" stylesheets="@CSS/MainStylesheet.css">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/user.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="usernameTextFiled" prefHeight="40.0" prefWidth="473.0" promptText="Enter your username" styleClass="registerTextFiled" stylesheets="@CSS/MainStylesheet.css" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="31.0" prefWidth="503.0" styleClass="registerBox" stylesheets="@CSS/MainStylesheet.css">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/forgotPassword.png" />
+                     </image>
+                  </ImageView>
+                  <PasswordField fx:id="passwordTextFiled" prefHeight="63.0" prefWidth="473.0" promptText="Enter your password" styleClass="registerTextFiled" stylesheets="@CSS/MainStylesheet.css" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="5.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#loginAction" prefHeight="47.0" prefWidth="503.0" styleClass="btnCompose" stylesheets="@CSS/MainStylesheet.css" text="Login" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <Button layoutX="510.0" layoutY="14.0" mnemonicParsing="false" onAction="#SignUpAction" prefHeight="40.0" prefWidth="104.0" styleClass="btnCompose" stylesheets="@CSS/MainStylesheet.css" text="Sign Up" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

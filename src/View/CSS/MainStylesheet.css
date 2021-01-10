@@ -1,0 +1,56 @@
+AnchorPane{
+    -fx-padding: 0;
+    -fx-background-color: radial-gradient(center 70% 15%, radius 60%, #14274e, #9ba4b4);
+    -fx-background-repeat: repeat;
+    -fx-background-position: left top, left 19px top 15px;
+}
+*{
+    -fx-border-radius: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0 ;
+}
+.btn{
+    -fx-background-color: none;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0.5px 0 0;
+    -fx-text-fill: whitesmoke;
+}
+.btnFirst{
+    -fx-border-width: 0 0.5px;
+}
+.btn:hover{
+    -fx-background-color: #14274e;
+    -fx-border-color: #14274e;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-text-fill: whitesmoke;
+}
+.btnCompose{
+    -fx-background-color: none;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-border-radius: 25px;
+    -fx-text-fill: whitesmoke;
+}
+.btnCompose:hover{
+    -fx-background-color: #14274e;
+    -fx-background-radius: 25px;
+    -fx-border-color: #14274e;
+    -fx-border-width: 1;
+    -fx-border-radius: 25px;
+    -fx-text-fill: white;
+}
+.inputComposeTextFiled{
+    -fx-background-color: none;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 0.5px 0;
+    -fx-text-fill: white;
+}
+.registerTextFiled{
+    -fx-background-color: none;
+    -fx-text-fill: white;
+}
+.registerBox{
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 0.5px 0;
+}
