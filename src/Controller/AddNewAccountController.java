@@ -9,7 +9,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 
 import javax.swing.*;
 import java.net.URL;
@@ -18,16 +17,16 @@ import java.util.ResourceBundle;
 public class AddNewAccountController implements Initializable {
 
     @FXML
-    private PasswordField passwordTextFiled;
-
-    @FXML
     private AnchorPane addNewAccountAnchorPane;
 
     @FXML
-    private ComboBox<String> AccountType;
+    private PasswordField passwordTextFiled;
 
     @FXML
     private TextField usernameTextFiled;
+
+    @FXML
+    private ComboBox<String> AccountType;
 
     @FXML
     void AddNewAccount(ActionEvent event) {
