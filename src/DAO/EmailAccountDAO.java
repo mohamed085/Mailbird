@@ -3,6 +3,8 @@ package DAO;
 import Model.EmailAccountBean;
 import Model.EmailAccountFactory;
 import Model.UserBean;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,8 +38,8 @@ public class EmailAccountDAO {
     }
 
     //returnAllAccountForUser
-    public List<EmailAccountFactory> AllAccountForUser(int userID){
-        List<EmailAccountFactory> currentUserAccounts = new ArrayList<EmailAccountFactory>();
+    public ObservableList<EmailAccountFactory> AllAccountForUser(int userID){
+        ObservableList<EmailAccountFactory> currentUserAccounts = FXCollections.observableArrayList();
         PreparedStatement pre;
         ResultSet resultSet = null;
         Connection connection = DBConnection.getConnection();

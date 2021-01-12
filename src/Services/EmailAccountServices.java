@@ -3,6 +3,8 @@ package Services;
 import DAO.EmailAccountDAO;
 import Model.EmailAccountBean;
 import Model.EmailAccountFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
@@ -23,16 +25,9 @@ public class EmailAccountServices {
 
     }
 
-    public void AllAccountForUser(int userID){
+    public ObservableList<EmailAccountFactory> AllAccountForUser(int userID){
         emailAccountDAO = new EmailAccountDAO();
-        List<EmailAccountFactory> currentUserAccounts = emailAccountDAO.AllAccountForUser(2);
-        if (currentUserAccounts.size() > 0){
-            for (EmailAccountFactory emailAccountFactory:currentUserAccounts){
-                emailAccountBean = emailAccountFactory.createEmailAccount();
-                System.out.println(emailAccountBean.getEmailAddress()+" "+emailAccountBean.getEmailPassword()+" "+emailAccountBean.getType());
-            }
-        }
-        else
-            System.out.println("Something wrong EmailAccountServices.AllAccountForUser");
+        ObservableList<EmailAccountFactory> currentUserAccounts = emailAccountDAO.AllAccountForUser(userID);
+        return currentUserAccounts;
     }
 }

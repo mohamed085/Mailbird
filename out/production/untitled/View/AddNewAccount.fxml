@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="addNewAccountAnchorPane" prefHeight="535.0" prefWidth="551.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddNewAccountController">
+<AnchorPane fx:id="addNewAccountAnchorPane" prefHeight="535.0" prefWidth="551.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="-6.0" layoutY="70.0" prefHeight="95.0" prefWidth="628.0">
          <children>

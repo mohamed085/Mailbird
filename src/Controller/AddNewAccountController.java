@@ -2,6 +2,7 @@ package Controller;
 
 import Model.EmailAccountBean;
 import Model.EmailAccountFactory;
+import Model.ModelAccess;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +15,11 @@ import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddNewAccountController implements Initializable {
+public class AddNewAccountController extends AbstractController implements Initializable {
+
+    public AddNewAccountController(ModelAccess modelAccess) {
+        super(modelAccess);
+    }
 
     @FXML
     private AnchorPane addNewAccountAnchorPane;
@@ -37,7 +42,7 @@ public class AddNewAccountController implements Initializable {
             /**
              * Go To Main Layout
              */
-       }
+        }
         else
             JOptionPane.showMessageDialog(null,"Invalid email account");
     }
