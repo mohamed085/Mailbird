@@ -6,19 +6,19 @@ import Services.UserServices;
 import View.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class LoginController extends AbstractController{
 
     ViewFactory viewFactory;
+    Stage stage;
+    UserBean currentUser;
 
     @FXML
     private AnchorPane loginAnchorPane;
@@ -31,19 +31,26 @@ public class LoginController extends AbstractController{
 
 
     @FXML
-    void loginAction(ActionEvent event) {
+    void loginAction(ActionEvent event) throws IOException {
         UserBean userBean = new UserBean(usernameTextFiled.getText(),passwordTextFiled.getText());
-        System.out.println(userBean.toString());
-        UserServices userServices =new UserServices();
-        userServices.addNewUSer(userBean);
-        getModelAccess().setUser(userBean);
-        loginAnchorPane.getScene().getWindow().hide();
+        UserServices userServices = new UserServices();
+        currentUser = userServices.searchForUser(userBean);
+        if (currentUser != null){
+            getModelAccess().setUser(currentUser);
+            loginAnchorPane.getScene().getWindow().hide();
+            stage = new Stage();
+            viewFactory = ViewFactory.defaultViewFactory;
+            stage.setScene(viewFactory.getMainScene());
+            stage.setTitle("Main client app");
+            stage.show();
+        }else
+            JOptionPane.showMessageDialog(null ,"Invalid input");
     }
 
     @FXML
     void SignUpAction(ActionEvent event) throws IOException {
         loginAnchorPane.getScene().getWindow().hide();
-        Stage stage = new Stage();
+        stage = new Stage();
         viewFactory = ViewFactory.defaultViewFactory;
         stage.setScene(viewFactory.getRegisterScene());
         stage.setTitle("Register");

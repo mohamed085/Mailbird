@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1180.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="readMessage" layoutX="196.0" layoutY="33.0" mnemonicParsing="false" onAction="#readMessageAction" prefHeight="32.0" prefWidth="98.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Read Message" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="downloadAttachmentBtn" layoutX="293.0" layoutY="33.0" mnemonicParsing="false" onAction="#downloadAttachmentBtnAction" prefHeight="32.0" prefWidth="139.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Download Attachment" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <TreeView fx:id="emailFolders" layoutX="8.0" layoutY="71.0" prefHeight="545.0" prefWidth="234.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="71.0" />
+      <TableView fx:id="mailTableView" layoutX="244.0" layoutY="71.0" prefHeight="258.0" prefWidth="930.0" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="71.0">
+         <columns>
+            <TableColumn fx:id="subjectCol" prefWidth="378.0" text="Subject" />
+            <TableColumn fx:id="fromCol" minWidth="0.0" prefWidth="265.0" text="From" />
+            <TableColumn fx:id="dateSentCol" prefWidth="178.0" text="Date" />
+            <TableColumn fx:id="sizeCol" prefWidth="108.0" text="Size" />
+         </columns></TableView>
+      <WebView fx:id="messageRender" layoutX="244.0" layoutY="330.0" prefHeight="286.0" prefWidth="930.0" stylesheets="@CSS/MainStylesheet.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="330.0" />
+      <Label fx:id="downloadAttachmentLabel" layoutX="470.0" layoutY="28.0" prefHeight="17.0" prefWidth="199.0" text="Downloading attachments" textFill="WHITE" />
+      <ProgressBar fx:id="downloadAttachmentProgressBar" layoutX="470.0" layoutY="47.0" prefWidth="200.0" progress="0.0" />
+      <Button layoutX="124.0" layoutY="33.0" mnemonicParsing="false" onAction="#composeAction" prefHeight="32.0" prefWidth="72.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Compose" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="8.0" layoutY="33.0" mnemonicParsing="false" onAction="#addNewAccountAction" prefHeight="32.0" prefWidth="115.0" stylesheets="@CSS/MainStylesheet.css" text="Add New Account" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <styleClass>
+            <String fx:value="btn" />
+            <String fx:value="btnFirst" />
+         </styleClass>
+      </Button>
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>

@@ -20,15 +20,18 @@ public class UserServices {
         }
     }
 
-    public boolean searchForUser(UserBean userBean){
+    public UserBean searchForUser(UserBean userBean){
         userDAO = new UserDAO();
         currentUSer = userDAO.searchForUser(userBean);
         if (currentUSer != null){
             System.out.println(currentUSer.toString());
-            return true;
+            return currentUSer;
         }
-        else
+        else {
             System.out.println("Something wrong UserServices.searchForUser");
-        return false;
+            return null;
+        }
     }
+
+
 }

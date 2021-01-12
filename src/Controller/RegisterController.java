@@ -6,19 +6,18 @@ import Services.UserServices;
 import View.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class RegisterController extends AbstractController{
 
     ViewFactory viewFactory;
+    UserBean currentUser;
 
     @FXML
     private AnchorPane registerAnchorPane;
@@ -35,13 +34,16 @@ public class RegisterController extends AbstractController{
         UserBean userBean = new UserBean(newUsernameTextFiled.getText(),newPasswordTextFiled.getText());
         System.out.println(userBean.toString());
         UserServices userServices =new UserServices();
-        userServices.addNewUSer(userBean);
-        getModelAccess().setUser(userBean);
-        registerAnchorPane.getScene().getWindow().hide();
-        Stage stage = new Stage();
-        stage.setScene(viewFactory.getAddNewAccount());
-        stage.setTitle("Add new account");
-        stage.show();
+        if (userServices.addNewUSer(userBean)){
+            currentUser = userServices.searchForUser(userBean);
+            getModelAccess().setUser(currentUser);
+            registerAnchorPane.getScene().getWindow().hide();
+            Stage stage = new Stage();
+            stage.setScene(viewFactory.getAddNewAccount());
+            stage.setTitle("Add new account");
+            stage.show();
+        }else
+            JOptionPane.showMessageDialog(null ,"Invalid input");
     }
 
     @FXML

@@ -1,10 +1,7 @@
 package View;
 
 
-import Controller.AbstractController;
-import Controller.AddNewAccountController;
-import Controller.LoginController;
-import Controller.RegisterController;
+import Controller.*;
 import Model.ModelAccess;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,22 +10,24 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.naming.OperationNotSupportedException;
 import java.io.IOException;
 
 public class ViewFactory {
 
     public static ViewFactory defaultViewFactory = new ViewFactory();
-    private static boolean mainViewInitialized = false;
 
-    private final String ADD_NEW_ACCOUNT_LAYOUT = "AddNewAccount.fxml";
     private final String LOGIN_LAYOUT = "Login.fxml";
     private final String REGISTER_LAYOUT = "Register.fxml";
+    private final String ADD_NEW_ACCOUNT_LAYOUT = "AddNewAccount.fxml";
+    private final String MAIN_SCREEN_FXML = "Main.fxml";
 
     private ModelAccess modelAccess = new ModelAccess();
 
     private AbstractController addNewAccountController;
     private AbstractController loginController;
     private AbstractController registerController;
+    private AbstractController mainController;
 
 
     private Scene initializeScene(String FXMLPath, AbstractController controller){
@@ -61,6 +60,10 @@ public class ViewFactory {
         return initializeScene(ADD_NEW_ACCOUNT_LAYOUT,addNewAccountController);
     }
 
+    public Scene getMainScene() throws IOException {
+        mainController = new MainController(modelAccess);
+        return initializeScene(MAIN_SCREEN_FXML,mainController);
+    }
 
 
     public Node resolveIcon(String treeItemValue){

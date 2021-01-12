@@ -3,7 +3,7 @@ package Model;
 import javafx.collections.ObservableList;
 
 public class ModelAccess {
-    private UserBean user;
+    private UserBean user = new UserBean();
     private ObservableList<EmailAccountFactory> userAccounts;
 
     public UserBean getUser() {

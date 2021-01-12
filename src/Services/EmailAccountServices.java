@@ -3,10 +3,7 @@ package Services;
 import DAO.EmailAccountDAO;
 import Model.EmailAccountBean;
 import Model.EmailAccountFactory;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.List;
 
 public class EmailAccountServices {
     EmailAccountBean emailAccountBean;
