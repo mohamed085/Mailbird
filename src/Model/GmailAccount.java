@@ -1,7 +1,8 @@
 package Model;
 
-import javax.mail.Session;
-import javax.mail.Store;
+import javafx.collections.ObservableList;
+
+import javax.mail.*;
 import java.util.Properties;
 
 public class GmailAccount implements EmailAccountBean {
@@ -23,21 +24,47 @@ public class GmailAccount implements EmailAccountBean {
         String host = "pop.gmail.com";// change accordingly
 
         properties = new Properties();
-        Properties properties = new Properties();
-        properties.put("mail.pop3.host", host);
-        properties.put("mail.pop3.port", "995");
-        properties.put("mail.pop3.starttls.enable", "true");
+        properties.put("mail.store.protocol", "imaps");
+        properties.put("mail.transport.protocol", "smtps");
+        properties.put("mail.smtps.host", "smtp.gmail.com");
+        properties.put("mail.smtps.auth", "true");
+        properties.put("incomingHost", "imap.gmail.com");
+        properties.put("outgoingHost", "smtp.gmail.com");
         Session emailSession = Session.getDefaultInstance(properties);
 
-        //create the POP3 store object and connect with the pop server
+        //create the IMAP store object and connect with the pop server
         try {
-            Store store = emailSession.getStore("pop3s");
+            store = emailSession.getStore("imaps");
             store.connect(host, GmailAddress, GmailPassword);
-            System.out.println("EmailAccountBean constructed succesufully!!!");
+            System.out.println("EmailAccountBean constructed successfully!!!");
             loginState = EmailAccountConstants.LOGIN_STATE_SUCCEEDED;
         } catch (Exception e) {
             e.printStackTrace();
             loginState = EmailAccountConstants.LOGIN_STATE_FAILED_BY_CREDENTIALS;
+        }
+    }
+
+
+    @Override
+    public void addEmailsToData(ObservableList<EmailMessageBean> data){
+        try {
+            System.out.println("Thread that is fetching emails: " + Thread.currentThread().getName());
+            Folder folder = store.getFolder("INBOX");
+            folder.open(Folder.READ_ONLY);
+            for(int i = folder.getMessageCount(); i > 0; i--){
+                Message message = folder.getMessage(i);
+                EmailMessageBean messageBean = new EmailMessageBean(message.getSubject(),
+                        message.getFrom()[0].toString(),
+                        message.getSize(),
+                        "",
+                        message.getFlags().contains(Flags.Flag.SEEN));
+                System.out.println("Got: " + messageBean);
+                data.add(messageBean);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,7 +1,8 @@
 package Model;
 
-import javax.mail.Session;
-import javax.mail.Store;
+import javafx.collections.ObservableList;
+
+import javax.mail.*;
 import java.util.Properties;
 
 public class OutlookAccount implements EmailAccountBean {
@@ -21,7 +22,7 @@ public class OutlookAccount implements EmailAccountBean {
         System.out.println("OutlookAccount");
 
         String host = "outlook.office365.com";// change accordingly
-        Properties properties = new Properties();
+        properties = new Properties();
         properties.put("mail.pop3.host", host);
         properties.put("mail.pop3.port", "995");
         properties.put("mail.pop3.starttls.enable", "true");
@@ -29,13 +30,37 @@ public class OutlookAccount implements EmailAccountBean {
 
         //create the POP3 store object and connect with the pop server
         try {
-            Store store = emailSession.getStore("pop3s");
+            store = emailSession.getStore("pop3s");
             store.connect(host, OutlookAddress, OutlookPassword);
             System.out.println("EmailAccountBean constructed succesufully!!!");
             loginState = EmailAccountConstants.LOGIN_STATE_SUCCEEDED;
         } catch (Exception e) {
             e.printStackTrace();
             loginState = EmailAccountConstants.LOGIN_STATE_FAILED_BY_CREDENTIALS;
+        }
+    }
+
+
+    @Override
+    public void addEmailsToData(ObservableList<EmailMessageBean> data){
+        try {
+            System.out.println("Thread that is fetching emails: " + Thread.currentThread().getName());
+            Folder folder = store.getFolder("INBOX");
+            folder.open(Folder.READ_ONLY);
+            for(int i = folder.getMessageCount(); i > 0; i--){
+                Message message = folder.getMessage(i);
+                EmailMessageBean messageBean = new EmailMessageBean(message.getSubject(),
+                        message.getFrom()[0].toString(),
+                        message.getSize(),
+                        "",
+                        message.getFlags().contains(Flags.Flag.SEEN));
+                System.out.println("Got: " + messageBean);
+                data.add(messageBean);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

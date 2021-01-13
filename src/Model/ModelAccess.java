@@ -3,7 +3,9 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ModelAccess {
@@ -12,6 +14,7 @@ public class ModelAccess {
     private EmailAccountBean emailAccountBean;
     private Map<String, EmailAccountFactory> userAccounts = new HashMap<String, EmailAccountFactory>();
     private ObservableList<String> userAccountsAddresses = FXCollections.observableArrayList();
+    private List<EmailAccountFactory> userAccountsFactory = new ArrayList<>();
 
     private EmailMessageBean selectedMessage;
     private EmailFolderBean<String> selectedFolder;
@@ -32,10 +35,19 @@ public class ModelAccess {
         emailAccountBean = userAccount.createEmailAccount();
         userAccounts.put(emailAccountBean.getEmailAddress(),userAccount);
         userAccountsAddresses.add(emailAccountBean.getEmailAddress());
+        userAccountsFactory.add(userAccount);
     }
 
     public ObservableList<String> getUserAccountsAddresses() {
         return userAccountsAddresses;
+    }
+
+    public EmailFolderBean<String> getSelectedFolder() {
+        return selectedFolder;
+    }
+
+    public List<EmailAccountFactory> getUserAccountsFactory() {
+        return userAccountsFactory;
     }
 
     public EmailMessageBean getSelectedMessage() {
@@ -44,10 +56,6 @@ public class ModelAccess {
 
     public void setSelectedMessage(EmailMessageBean selectedMessage) {
         this.selectedMessage = selectedMessage;
-    }
-
-    public EmailFolderBean<String> getSelectedFolder() {
-        return selectedFolder;
     }
 
     public void setSelectedFolder(EmailFolderBean<String> selectedFolder) {

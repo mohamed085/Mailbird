@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import Services.EmailAccountServices;
 import View.ViewFactory;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -90,6 +91,7 @@ public class MainController extends AbstractController implements Initializable{
 		for (EmailAccountFactory emailAccountFactory:currentUserAccounts){
 			getModelAccess().setUserAccounts(emailAccountFactory);
 		}
+
 
 		/** For test model access
 		 System.out.println("getModelAccess().getUserAccounts()");
