@@ -49,7 +49,7 @@ public class RegisterController extends AbstractController{
     @FXML
     void loginAction(ActionEvent event) throws IOException {
         registerAnchorPane.getScene().getWindow().hide();
-        viewFactory = ViewFactory.defaultViewFactory;
+        viewFactory = ViewFactory.defaultFactory;
         Stage stage = new Stage();
         stage.setScene(viewFactory.getLoginScene());
         stage.setTitle("Login");

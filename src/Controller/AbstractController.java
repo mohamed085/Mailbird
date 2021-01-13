@@ -3,14 +3,15 @@ package Controller;
 import Model.ModelAccess;
 
 public abstract class AbstractController {
-    private ModelAccess modelAccess;
+	
+	private ModelAccess modelAccess;
 
-    public AbstractController(ModelAccess modelAccess) {
-        this.modelAccess = modelAccess;
-    }
-
-    public ModelAccess getModelAccess() {
-        return modelAccess;
-    }
+	public AbstractController(ModelAccess modelAccess) {
+		this.modelAccess = modelAccess;
+	}
+	
+	public ModelAccess getModelAccess(){
+		return modelAccess;
+	}
 
 }

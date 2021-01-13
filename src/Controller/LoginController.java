@@ -16,9 +16,9 @@ import java.io.IOException;
 
 public class LoginController extends AbstractController{
 
-    ViewFactory viewFactory;
-    Stage stage;
-    UserBean currentUser;
+    private ViewFactory viewFactory;
+    private Stage stage;
+    private UserBean currentUser;
 
     @FXML
     private AnchorPane loginAnchorPane;
@@ -39,7 +39,7 @@ public class LoginController extends AbstractController{
             getModelAccess().setUser(currentUser);
             loginAnchorPane.getScene().getWindow().hide();
             stage = new Stage();
-            viewFactory = ViewFactory.defaultViewFactory;
+            viewFactory = ViewFactory.defaultFactory;
             stage.setScene(viewFactory.getMainScene());
             stage.setTitle("Main client app");
             stage.show();
@@ -51,7 +51,7 @@ public class LoginController extends AbstractController{
     void SignUpAction(ActionEvent event) throws IOException {
         loginAnchorPane.getScene().getWindow().hide();
         stage = new Stage();
-        viewFactory = ViewFactory.defaultViewFactory;
+        viewFactory = ViewFactory.defaultFactory;
         stage.setScene(viewFactory.getRegisterScene());
         stage.setTitle("Register");
         stage.show();

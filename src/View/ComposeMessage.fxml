@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="composeAnchorPane" prefHeight="680.0" prefWidth="627.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="218.0" prefWidth="623.0">
+         <children>
+            <Pane prefHeight="46.0" prefWidth="534.0" />
+            <HBox alignment="CENTER" prefHeight="23.0" prefWidth="534.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="60.0" text="From" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="fromComboBox" prefHeight="25.0" prefWidth="525.0" styleClass="inputComposeTextFiled" stylesheets="@CSS/MainStylesheet.css">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="23.0" prefWidth="534.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="60.0" text="To" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="toTextFiled" prefHeight="25.0" prefWidth="525.0" styleClass="inputComposeTextFiled" stylesheets="@CSS/MainStylesheet.css">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="23.0" prefWidth="534.0">
+               <children>
+                  <Label prefWidth="60.0" text="Subject" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="subjectTextFiled" prefHeight="25.0" prefWidth="525.0" styleClass="inputComposeTextFiled" stylesheets="@CSS/MainStylesheet.css">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="534.0">
+               <children>
+                  <Pane prefHeight="54.0" prefWidth="20.0" />
+                  <Button mnemonicParsing="false" onAction="#AddAttachmentAction" prefHeight="36.0" prefWidth="141.0" styleClass="btnCompose" stylesheets="@CSS/MainStylesheet.css" text="Add Attach">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Pane prefHeight="54.0" prefWidth="10.0" />
+                  <Label fx:id="attachmentName" prefHeight="25.0" prefWidth="201.0" text="No attachment" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <HTMLEditor fx:id="content" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="11.0" layoutY="221.0" prefHeight="399.0" prefWidth="600.0">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></HTMLEditor>
+      <Button layoutX="456.0" layoutY="632.0" mnemonicParsing="false" onAction="#sendMailAction" prefHeight="36.0" prefWidth="159.0" styleClass="btnCompose" stylesheets="@CSS/MainStylesheet.css" text="Send Mail">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

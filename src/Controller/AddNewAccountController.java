@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javax.naming.OperationNotSupportedException;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
@@ -45,7 +44,7 @@ public class AddNewAccountController extends AbstractController implements Initi
             emailAccountServices = new EmailAccountServices();
             emailAccountServices.addNewAccount(getModelAccess().getUser().getUserID(),newEmail);
             addNewAccountAnchorPane.getScene().getWindow().hide();
-            viewFactory = ViewFactory.defaultViewFactory;
+            viewFactory = ViewFactory.defaultFactory;
             Stage stage = new Stage();
             stage.setScene(viewFactory.getMainScene());
             stage.setTitle("Mail client application");
