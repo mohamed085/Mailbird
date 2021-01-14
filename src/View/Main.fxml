@@ -6,13 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1180.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1180.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="readMessage" layoutX="196.0" layoutY="33.0" mnemonicParsing="false" onAction="#readMessageAction" prefHeight="32.0" prefWidth="98.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Read Message" textFill="WHITE">
+      <Button fx:id="readMessage" layoutX="196.0" layoutY="36.0" mnemonicParsing="false" onAction="#readMessageAction" prefHeight="32.0" prefWidth="98.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Read Message" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="downloadAttachmentBtn" layoutX="293.0" layoutY="33.0" mnemonicParsing="false" onAction="#downloadAttachmentBtnAction" prefHeight="32.0" prefWidth="139.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Download Attachment" textFill="WHITE">
+      <Button fx:id="downloadAttachmentBtn" layoutX="293.0" layoutY="36.0" mnemonicParsing="false" onAction="#downloadAttachmentBtnAction" prefHeight="32.0" prefWidth="139.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Download Attachment" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -25,14 +25,14 @@
             <TableColumn fx:id="sizeCol" prefWidth="108.0" text="Size" />
          </columns></TableView>
       <WebView fx:id="messageRender" layoutX="244.0" layoutY="330.0" prefHeight="286.0" prefWidth="930.0" stylesheets="@CSS/MainStylesheet.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="330.0" />
-      <Label fx:id="downloadAttachmentLabel" layoutX="470.0" layoutY="28.0" prefHeight="17.0" prefWidth="199.0" text="Downloading attachments" textFill="WHITE" />
-      <ProgressBar fx:id="downloadAttachmentProgressBar" layoutX="470.0" layoutY="47.0" prefWidth="200.0" progress="0.0" />
-      <Button layoutX="124.0" layoutY="33.0" mnemonicParsing="false" onAction="#composeAction" prefHeight="32.0" prefWidth="72.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Compose" textFill="WHITE">
+      <Label fx:id="downloadAttachmentLabel" layoutX="455.0" layoutY="29.0" prefHeight="17.0" prefWidth="199.0" text="Downloading attachments" textFill="WHITE" />
+      <ProgressBar fx:id="downloadAttachmentProgressBar" layoutX="455.0" layoutY="50.0" prefWidth="200.0" progress="0.0" />
+      <Button layoutX="124.0" layoutY="36.0" mnemonicParsing="false" onAction="#composeAction" prefHeight="32.0" prefWidth="72.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Compose" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="8.0" layoutY="33.0" mnemonicParsing="false" onAction="#addNewAccountAction" prefHeight="32.0" prefWidth="115.0" stylesheets="@CSS/MainStylesheet.css" text="Add New Account" textFill="WHITE">
+      <Button layoutX="8.0" layoutY="36.0" mnemonicParsing="false" onAction="#addNewAccountAction" prefHeight="32.0" prefWidth="115.0" stylesheets="@CSS/MainStylesheet.css" text="Add New Account" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -21,17 +21,20 @@ public class OutlookAccount implements EmailAccountBean {
 
         System.out.println("OutlookAccount");
 
-        String host = "outlook.office365.com";// change accordingly
         properties = new Properties();
-        properties.put("mail.pop3.host", host);
-        properties.put("mail.pop3.port", "995");
-        properties.put("mail.pop3.starttls.enable", "true");
+        properties.setProperty("mail.store.protocol", "imaps");
+        //extra codes required for reading OUTLOOK mails during IMAP-start
+        properties.setProperty("mail.imaps.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        properties.setProperty("mail.imaps.socketFactory.fallback", "false");
+        properties.setProperty("mail.imaps.port", "993");
+        properties.setProperty("mail.imaps.socketFactory.port", "993");
+        
         Session emailSession = Session.getDefaultInstance(properties);
 
         //create the POP3 store object and connect with the pop server
         try {
-            store = emailSession.getStore("pop3s");
-            store.connect(host, OutlookAddress, OutlookPassword);
+            store = emailSession.getStore("imaps");
+            store.connect("outlook.office365.com", OutlookAddress, OutlookPassword);
             System.out.println("EmailAccountBean constructed succesufully!!!");
             loginState = EmailAccountConstants.LOGIN_STATE_SUCCEEDED;
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Services.EmailAccountFoldersServices;
 import Services.EmailAccountServices;
 import View.ViewFactory;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
@@ -24,6 +26,7 @@ public class MainController extends AbstractController implements Initializable{
     public MainController(ModelAccess modelAccess) {
 		super(modelAccess);
 	}
+	private EmailAccountFoldersServices emailAccountFoldersServices;
 	private EmailAccountServices emailAccountServices;
 	private EmailAccountFactory emailAccountFactory;
 	private EmailAccountBean emailAccountBean;
@@ -31,6 +34,9 @@ public class MainController extends AbstractController implements Initializable{
 	private ViewFactory viewFactory;
 	private Stage stage;
 
+
+	@FXML
+	private AnchorPane mainAnchorPane;
 
 	@FXML
 	private TreeView<String> emailFolders;
@@ -70,6 +76,7 @@ public class MainController extends AbstractController implements Initializable{
 
 	@FXML
 	void addNewAccountAction(ActionEvent event) throws IOException {
+		mainAnchorPane.getScene().getWindow().hide();
 		stage = new Stage();
 		viewFactory = ViewFactory.defaultFactory;
 		stage.setScene(viewFactory.getAddNewAccount());
@@ -91,7 +98,6 @@ public class MainController extends AbstractController implements Initializable{
 		for (EmailAccountFactory emailAccountFactory:currentUserAccounts){
 			getModelAccess().setUserAccounts(emailAccountFactory);
 		}
-
 
 		/** For test model access
 		 System.out.println("getModelAccess().getUserAccounts()");
@@ -124,22 +130,13 @@ public class MainController extends AbstractController implements Initializable{
 		EmailFolderBean<String> root = new EmailFolderBean<>("");
 		emailFolders.setRoot(root);
 		emailFolders.setShowRoot(false);
-		
-		EmailFolderBean<String> barosanu = new EmailFolderBean<>("example@yahoo.com");
-		root.getChildren().add(barosanu);
-		EmailFolderBean<String> Inbox = new EmailFolderBean<>("Inbox", "CompleteInbox");
-		EmailFolderBean<String> Sent = new EmailFolderBean<>("Sent", "CompleteSent");
-			Sent.getChildren().add(new EmailFolderBean<>("Subfolder1", "SubFolder1Complete"));
-			Sent.getChildren().add(new EmailFolderBean<>("Subfolder2", "SubFolder1Complete2"));
-		EmailFolderBean<String> Spam = new EmailFolderBean<>("Spam", "CompleteSpam");
-		
-		barosanu.getChildren().addAll(Inbox, Sent, Spam);
-		
-		Inbox.getData().addAll(SampleData.Inbox);
-		Sent.getData().addAll(SampleData.Sent);
-		Spam.getData().addAll(SampleData.Spam);
-		
-		
+
+		/** Start to fetch accounts folders */
+		for (EmailAccountFactory emailAccountFactory: getModelAccess().getUserAccountsFactory()){
+			emailAccountFoldersServices = new EmailAccountFoldersServices (emailAccountFactory,root);
+			emailAccountFoldersServices.start();
+		}
+
 		mailTableView.setContextMenu(new ContextMenu(showDetails));
 		
 		emailFolders.setOnMouseClicked(e ->{
