@@ -3,6 +3,7 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.mail.Folder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +11,13 @@ import java.util.Map;
 
 public class ModelAccess {
     private UserBean user = new UserBean();
-
     private EmailAccountBean emailAccountBean;
+
+    private List<Folder> foldersList = new ArrayList<Folder>();
     private Map<String, EmailAccountFactory> userAccounts = new HashMap<String, EmailAccountFactory>();
-    private ObservableList<String> userAccountsAddresses = FXCollections.observableArrayList();
     private List<EmailAccountFactory> userAccountsFactory = new ArrayList<>();
+    private ObservableList<String> userAccountsAddresses = FXCollections.observableArrayList();
+
 
     private EmailMessageBean selectedMessage;
     private EmailFolderBean<String> selectedFolder;
@@ -62,5 +65,12 @@ public class ModelAccess {
         this.selectedFolder = selectedFolder;
     }
 
+    public List<Folder> getFoldersList() {
+        return foldersList;
+    }
+
+    public void addFolder(Folder folder){
+        foldersList.add(folder);
+    }
 
 }

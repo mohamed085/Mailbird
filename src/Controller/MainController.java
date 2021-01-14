@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import Services.EmailAccountFoldersServices;
 import Services.EmailAccountServices;
+import Services.FolderUpdateServices;
 import View.ViewFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +33,7 @@ public class MainController extends AbstractController implements Initializable{
 	private EmailAccountBean emailAccountBean;
 	private EmailAccountFactory emailAccountFactory;
 	private EmailAccountServices emailAccountServices;
+	private FolderUpdateServices folderUpdateServices;
 	private EmailAccountFoldersServices emailAccountFoldersServices;
 
 
@@ -134,9 +136,12 @@ public class MainController extends AbstractController implements Initializable{
 
 		/** Start to fetch accounts folders */
 		for (EmailAccountFactory emailAccountFactory: getModelAccess().getUserAccountsFactory()){
-			emailAccountFoldersServices = new EmailAccountFoldersServices (emailAccountFactory,root);
+			emailAccountFoldersServices = new EmailAccountFoldersServices (emailAccountFactory,root,getModelAccess());
 			emailAccountFoldersServices.start();
 		}
+
+		folderUpdateServices = new FolderUpdateServices(getModelAccess().getFoldersList());
+		folderUpdateServices.start();
 
 		mailTableView.setContextMenu(new ContextMenu(showDetails));
 		
