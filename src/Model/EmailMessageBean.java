@@ -9,21 +9,21 @@ public class EmailMessageBean extends AbstractTableItem{
 	
 	public static Map<String, Integer> formattedValues = new HashMap<String, Integer>();
 	
-	private SimpleStringProperty sender;
+	private SimpleStringProperty from;
 	private SimpleStringProperty subject;
 	private SimpleStringProperty size;
 	private String content;
 	
-	public EmailMessageBean(String Subject, String Sender, int size, String Content, boolean isRead){
+	public EmailMessageBean(String Subject, String from, int size, String Content, boolean isRead){
 		super(isRead);
 		this.subject = new SimpleStringProperty(Subject);
-		this.sender = new SimpleStringProperty(Sender);
+		this.from = new SimpleStringProperty(from);
 		this.size = new SimpleStringProperty(formatSize(size));
 		this.content = Content;
 	}
 	
-	public String getSender(){
-		return sender.get();
+	public String getFrom(){
+		return from.get();
 	}
 	public String getSubject(){
 		return subject.get();
@@ -56,7 +56,7 @@ public class EmailMessageBean extends AbstractTableItem{
 	@Override
 	public String toString() {
 		return "EmailMessageBean{" +
-				"sender=" + sender +
+				"sender=" + from +
 				", subject=" + subject +
 				", size=" + size +
 				", content='" + content + '\'' +

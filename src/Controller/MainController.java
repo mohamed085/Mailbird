@@ -26,13 +26,14 @@ public class MainController extends AbstractController implements Initializable{
     public MainController(ModelAccess modelAccess) {
 		super(modelAccess);
 	}
-	private EmailAccountFoldersServices emailAccountFoldersServices;
-	private EmailAccountServices emailAccountServices;
-	private EmailAccountFactory emailAccountFactory;
-	private EmailAccountBean emailAccountBean;
-	private EmailMessageBean selectedMessage;
-	private ViewFactory viewFactory;
 	private Stage stage;
+	private ViewFactory viewFactory;
+	private EmailMessageBean selectedMessage;
+	private EmailAccountBean emailAccountBean;
+	private EmailAccountFactory emailAccountFactory;
+	private EmailAccountServices emailAccountServices;
+	private EmailAccountFoldersServices emailAccountFoldersServices;
+
 
 
 	@FXML

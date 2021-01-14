@@ -24,7 +24,7 @@ public class EmailDetailsController extends AbstractController implements Initia
 	public void initialize(URL location, ResourceBundle resources) {
 		selectedMessage = getModelAccess().getSelectedMessage();
 		mailSubject.setText("Subject: " + selectedMessage.getSubject());
-		mailFrom.setText("From: " + selectedMessage.getSender());
+		mailFrom.setText("From: " + selectedMessage.getFrom());
 		mailContent.getEngine().loadContent(selectedMessage.getContent());
 	}
 

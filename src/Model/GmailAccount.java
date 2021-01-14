@@ -44,30 +44,6 @@ public class GmailAccount implements EmailAccountBean {
         }
     }
 
-
-    @Override
-    public void addEmailsToData(ObservableList<EmailMessageBean> data){
-        try {
-            System.out.println("Thread that is fetching emails: " + Thread.currentThread().getName());
-            Folder folder = store.getFolder("INBOX");
-            folder.open(Folder.READ_ONLY);
-            for(int i = folder.getMessageCount(); i > 0; i--){
-                Message message = folder.getMessage(i);
-                EmailMessageBean messageBean = new EmailMessageBean(message.getSubject(),
-                        message.getFrom()[0].toString(),
-                        message.getSize(),
-                        "",
-                        message.getFlags().contains(Flags.Flag.SEEN));
-                System.out.println("Got: " + messageBean);
-                data.add(messageBean);
-
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public String getEmailAddress() {
         return GmailAddress;

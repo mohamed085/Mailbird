@@ -15,6 +15,7 @@ public class FetchEmailAccountFoldersServices extends Service<Void> {
     private EmailAccountBean emailAccount;
     private ModelAccess modelAccess;
     private static int NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE = 0;
+    private FetchMessagesOnFolderMessagesServices fetchMessagesOnFolderMessagesServices;
 
     public FetchEmailAccountFoldersServices(EmailFolderBean<String> foldersRoot, EmailAccountFactory emailAccountFactory) {
         this.foldersRoot = foldersRoot;
@@ -32,12 +33,16 @@ public class FetchEmailAccountFoldersServices extends Service<Void> {
                         EmailFolderBean<String> emailFoldersItem = new EmailFolderBean<String>(folder.getName(), folder.getFullName());
                         foldersRoot.getChildren().add(emailFoldersItem);
                         emailFoldersItem.setExpanded(true);
+                        fetchMessagesOnFolderMessagesServices = new FetchMessagesOnFolderMessagesServices(emailFoldersItem,folder);
+                        fetchMessagesOnFolderMessagesServices.start();
                         System.out.println("Added : "+folder.getFullName());
                         Folder[] subFolders = folder.list();
                         for (Folder subfolder:subFolders) {
                             EmailFolderBean<String> emailFoldersSubItem = new EmailFolderBean<String>(subfolder.getName(), subfolder.getFullName());
                             emailFoldersItem.getChildren().add(emailFoldersSubItem);
                             emailFoldersSubItem.setExpanded(true);
+                            fetchMessagesOnFolderMessagesServices = new FetchMessagesOnFolderMessagesServices(emailFoldersSubItem,subfolder);
+                            fetchMessagesOnFolderMessagesServices.start();
                             System.out.println("Added : "+subfolder.getFullName());
                         }
                     }
@@ -46,4 +51,6 @@ public class FetchEmailAccountFoldersServices extends Service<Void> {
             }
         };
     }
+
+    
 }

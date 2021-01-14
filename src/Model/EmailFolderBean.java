@@ -5,6 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 
+import javax.mail.Flags;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import java.text.SimpleDateFormat;
+
 
 public class EmailFolderBean<T> extends TreeItem<String> {
 
@@ -52,11 +57,18 @@ public class EmailFolderBean<T> extends TreeItem<String> {
 		updateValue();
 	}
 	
-	public void addEmail(EmailMessageBean message){
-		data.add(message);
-		if(!message.isRead()){
-			incrementUnreadMessagesCount(1);
+	public void addEmail(int index, Message message) throws MessagingException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy , hh.mm aa");
+		boolean isRead = message.getFlags().contains(Flags.Flag.SEEN);
+		EmailMessageBean emailMessageBean = new EmailMessageBean(message.getSubject(), message.getFrom()[0].toString(), message.getSize(), "", isRead);
+		if (index < 0){
+			data.add(emailMessageBean);
 		}
+		else {
+			data.add(index,emailMessageBean);
+		}
+		if (!isRead)
+			incrementUnreadMessagesCount(1);
 	}
 	
 	public boolean isTopElement(){
