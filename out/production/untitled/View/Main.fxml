@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1180.0" stylesheets="@CSS/MainStylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="readMessage" layoutX="196.0" layoutY="36.0" mnemonicParsing="false" onAction="#readMessageAction" prefHeight="32.0" prefWidth="98.0" styleClass="btn" stylesheets="@CSS/MainStylesheet.css" text="Read Message" textFill="WHITE">
@@ -19,8 +20,18 @@
       <TreeView fx:id="emailFolders" layoutX="8.0" layoutY="71.0" prefHeight="545.0" prefWidth="234.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="71.0" />
       <TableView fx:id="mailTableView" layoutX="244.0" layoutY="71.0" prefHeight="258.0" prefWidth="930.0" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="71.0">
          <columns>
+            <TableColumn fx:id="markStarredCol" maxWidth="148.0" minWidth="20.0" prefWidth="29.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="STAR" />
+               </graphic>
+            </TableColumn>
             <TableColumn fx:id="subjectCol" prefWidth="378.0" text="Subject" />
             <TableColumn fx:id="fromCol" minWidth="0.0" prefWidth="265.0" text="From" />
+            <TableColumn fx:id="markAttachmentCol" maxWidth="148.0" minWidth="20.0" prefWidth="29.0">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PAPERCLIP" size="15" />
+               </graphic>
+            </TableColumn>
             <TableColumn fx:id="dateSentCol" prefWidth="178.0" text="Date" />
             <TableColumn fx:id="sizeCol" prefWidth="108.0" text="Size" />
          </columns></TableView>
