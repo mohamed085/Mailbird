@@ -4,10 +4,13 @@ import javax.naming.OperationNotSupportedException;
 
 import Controller.*;
 import Model.ModelAccess;
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -73,6 +76,25 @@ public class ViewFactory {
 	public Scene getEmailDetailsScene(){
 		emailDetailsController = new EmailDetailsController(modelAccess);
 		return initializeScene(EMAIL_DETAILS_FXML,emailDetailsController);
+	}
+
+	public Button setReadStyle(Button button, boolean isRead) {
+		if (isRead)
+			button.setStyle(" -fx-background-color: #aeafaf;\n" + "  -fx-background-radius: 5em;\n" + "  -fx-min-width: 7px;\n" + "  -fx-min-height: 7px;\n" + "  -fx-max-width: 7px;\n" + "  -fx-max-height: 7px;");
+		else
+			button.setStyle(" -fx-background-color: #007a17;\n" + "  -fx-background-radius: 5em;\n" + "  -fx-min-width: 10px;\n" + "  -fx-min-height: 10px;\n" + "  -fx-max-width: 10px;\n" + "  -fx-max-height: 10px;");
+		return button;
+	}
+
+	public Button setStarredStyle(Button button, boolean isRead) {
+		if (isRead) {
+			button.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.STAR_ALT , "15"));
+			button.setStyle(" -fx-background-color: #aeafaf;\n" + "  -fx-min-width: 5px;\n" + "  -fx-min-height: 5px;\n" + "  -fx-max-width: 5px;\n" + "  -fx-max-height: 5px;");
+		} else {
+			button.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.STAR , "15"));
+			button.setStyle(" -fx-background-color: #b0a700;\n" + "  -fx-min-width: 5px;\n" + "  -fx-min-height: 5px;\n" + "  -fx-max-width: 5px;\n" + "  -fx-max-height: 5px;");
+		}
+		return button;
 	}
 
 	public Node resolveIcon(String treeItemValue){

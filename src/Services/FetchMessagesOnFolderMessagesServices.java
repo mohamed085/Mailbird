@@ -23,7 +23,7 @@ public class FetchMessagesOnFolderMessagesServices extends Service<Void>{
             @Override
             protected Void call() throws Exception {
                 if (folder.getType() != Folder.HOLDS_FOLDERS)
-                    folder.open(Folder.READ_ONLY);
+                    folder.open(Folder.READ_WRITE);
                 for(int i = folder.getMessageCount(); (folder.getMessageCount() > 100) ? i > folder.getMessageCount() - 100 : i > 0 ; i--){
                     Message currentMessage = folder.getMessage(i);
                     emailFolder.addEmail(-1,currentMessage);

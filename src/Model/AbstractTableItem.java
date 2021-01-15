@@ -17,9 +17,8 @@ public abstract class AbstractTableItem {
 	public void setRead(boolean isRead){
 		read.set(isRead);
 	}
+
 	public boolean isRead(){
 		return read.get();
 	}
-	
-
 }

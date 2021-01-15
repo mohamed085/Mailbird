@@ -1,6 +1,9 @@
 package Model;
 
+import View.ViewFactory;
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Button;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,6 +22,10 @@ public class EmailMessageBean extends AbstractTableItem{
 	private SimpleStringProperty date;
 	private SimpleStringProperty size;
 	private Message messageReference;
+	private Button markReadButton;
+	private Button markStarredButton;
+	private Button markAttachmentButton;
+
 
 	//Handling Attachment
 	private List<MimeBodyPart> attachmentsList = new ArrayList<MimeBodyPart>();
@@ -31,6 +38,12 @@ public class EmailMessageBean extends AbstractTableItem{
 		this.date = new SimpleStringProperty(date);
 		this.size = new SimpleStringProperty(formatSize(size));
 		this.messageReference = messageReference;
+		this.markReadButton = new JFXButton();
+		this.markReadButton = new ViewFactory().setReadStyle(markReadButton , isRead);
+		this.markStarredButton = new JFXButton();
+		this.markStarredButton = new ViewFactory().setStarredStyle(markStarredButton , isRead);
+		this.markAttachmentButton = new JFXButton();
+		this.markAttachmentButton = new ViewFactory().setReadStyle(markAttachmentButton , isRead);
 	}
 	
 	public String getFrom(){
@@ -95,6 +108,18 @@ public class EmailMessageBean extends AbstractTableItem{
 	public void clearAttachments(){
 		attachmentsList.clear();
 		attachmentsNames.setLength(0);
+	}
+
+	public Button getMarkReadButton() {
+		return markReadButton;
+	}
+
+	public Button getMarkStarredButton() {
+		return markStarredButton;
+	}
+
+	public Button getMarkAttachmentButton() {
+		return markAttachmentButton;
 	}
 
 	@Override

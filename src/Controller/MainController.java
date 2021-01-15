@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
@@ -29,9 +28,11 @@ public class MainController extends AbstractController implements Initializable{
 	private ViewFactory viewFactory;
 	private EmailMessageBean selectedMessage;
 	private EmailAccountBean emailAccountBean;
+	private SeenMessageService seenMessageService;
 	private EmailAccountFactory emailAccountFactory;
 	private EmailAccountServices emailAccountServices;
 	private FolderUpdateServices folderUpdateServices;
+	private DeleteMessageService deleteMessageService;
 	private MessageRenderServices messageRenderServices;
 	private SaveAttachmentServices saveAttachmentServices;
 	private EmailAccountFoldersServices emailAccountFoldersServices;
@@ -41,7 +42,9 @@ public class MainController extends AbstractController implements Initializable{
 
 	@FXML
 	private TreeView<String> emailFolders;
-	private MenuItem showDetails = new MenuItem("show details");
+	private MenuItem showDetails = new MenuItem("Show details");
+	private MenuItem deleteMessage = new MenuItem("Delete message");
+	private ContextMenu contextMenu = new ContextMenu();
 	private TreeItem<String> root  = new TreeItem<String>();
 
 	@FXML
@@ -49,6 +52,9 @@ public class MainController extends AbstractController implements Initializable{
 
 	@FXML
 	private TableColumn<EmailMessageBean, String> fromCol,subjectCol,dateSentCol,sizeCol;
+
+	@FXML
+	private TableColumn<EmailMessageBean, Button> markStarredCol , markAttachmentCol;
 
 	@FXML
 	private WebView messageRender;
@@ -109,8 +115,8 @@ public class MainController extends AbstractController implements Initializable{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		downloadAttachmentProgressBar.setVisible(false);
 		downloadAttachmentLabel.setVisible(false);
+		downloadAttachmentProgressBar.setVisible(false);
 
 		/** Get user accounts and set in model access First Step */
 		emailAccountServices = new EmailAccountServices();
@@ -133,14 +139,17 @@ public class MainController extends AbstractController implements Initializable{
 
 		messageRenderServices = new MessageRenderServices(messageRender.getEngine());
 		saveAttachmentServices = new SaveAttachmentServices(downloadAttachmentProgressBar,downloadAttachmentLabel);
+		downloadAttachmentProgressBar.progressProperty().bind(saveAttachmentServices.progressProperty());
 
-
+		
 		mailTableView.setRowFactory(e-> new BoldableRowFactory<>());
 		ViewFactory viewfactory = ViewFactory.defaultFactory;
 		subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
 		fromCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("from"));
 		dateSentCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("date"));
-		sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));		
+		sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
+		markStarredCol.setCellValueFactory(new PropertyValueFactory<>("markStarredButton"));
+		markAttachmentCol.setCellValueFactory(new PropertyValueFactory<>("markAttachmentButton"));
 		sizeCol.setComparator(new Comparator<String>() {			
 			Integer int1, int2;			
 			@Override
@@ -165,7 +174,8 @@ public class MainController extends AbstractController implements Initializable{
 		folderUpdateServices = new FolderUpdateServices(getModelAccess().getFoldersList());
 		folderUpdateServices.start();
 
-		mailTableView.setContextMenu(new ContextMenu(showDetails));
+		contextMenu.getItems().addAll(showDetails,deleteMessage);
+		mailTableView.setContextMenu(contextMenu);
 		
 		emailFolders.setOnMouseClicked(e ->{
 			EmailFolderBean<String> item = (EmailFolderBean<String>)emailFolders.getSelectionModel().getSelectedItem();
@@ -176,24 +186,60 @@ public class MainController extends AbstractController implements Initializable{
 				getModelAccess().setSelectedMessage(null);
 			}
 		});
+
 		mailTableView.setOnMouseClicked(e->{
 			EmailMessageBean message = mailTableView.getSelectionModel().getSelectedItem();
 			if(message != null){
-				getModelAccess().setSelectedMessage(message);
+				boolean value = message.isRead();
+				if (!value){
+					System.out.println("Message read value : "+value);
+					message.setRead(true);
+					seenMessageService = new SeenMessageService(getModelAccess().getSelectedFolder() , mailTableView.getSelectionModel().getSelectedItem());
+					seenMessageService.restart();
+					EmailFolderBean<String> selectedFolder = getModelAccess().getSelectedFolder();
+					if (selectedFolder != null){
+						if(value){
+							selectedFolder.incrementUnreadMessagesCount(1);
+						}else {
+							selectedFolder.decrementUnreadMessagesCount();
+						}
+					}
+				}
 				messageRenderServices.setMessageToRender(message);
 				messageRenderServices.restart();
+				Button button2 = message.getMarkStarredButton();
+				button2.setOnAction(event -> {
+
+				});
 			}
 		});
+
 		showDetails.setOnAction(e->{
-			
 			Scene scene = viewfactory.getEmailDetailsScene();
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.show();
-		});		
-		
-		
-	}
-	
+		});
 
+		deleteMessage.setOnAction(e -> {
+			deleteMessageService = new DeleteMessageService(getModelAccess().getSelectedFolder(), mailTableView.getSelectionModel().getSelectedItem());
+			folderUpdateServices = new FolderUpdateServices(getModelAccess().getFoldersList());
+			emailFolders.getRoot().getChildren().clear();
+			deleteMessageService.start();
+			mainAnchorPane.getScene().getWindow().hide();
+			viewFactory = ViewFactory.defaultFactory;
+			Stage stage = new Stage();
+			try {
+				stage.setScene(viewFactory.getMainScene());
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+			stage.setTitle("Mail client application");
+			stage.show();
+		});
+
+		markStarredCol.setStyle("-fx-alignment: CENTER;");
+		markAttachmentCol.setStyle("-fx-alignment: CENTER;");
+
+	}
 }
