@@ -33,6 +33,7 @@ public class MessageRenderServices extends Service<Void>{
 
     private void renderMessage(){
         sb.setLength(0);
+        messageToRender.clearAttachments();
         Message message = messageToRender.getMessageReference();
         try {
             String messageType = message.getContentType();
@@ -56,10 +57,10 @@ public class MessageRenderServices extends Service<Void>{
                             sb.append(bp.getContent().toString());
                         }
 
-                        //here the attachments are handled TODO by someone who cares
+                        //here the attachments are handled
                     }else if(contentType.toLowerCase().contains("application")){
                         MimeBodyPart mbp = (MimeBodyPart)bp;
-
+                        messageToRender.addNewAttachment(mbp);
                         //Sometimes the text content of the message is encapsulated in another multipart,
                         //so we have to iterate again through it.
                     }else if(bp.getContentType().contains("multipart")){

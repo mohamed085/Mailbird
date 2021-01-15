@@ -1,12 +1,8 @@
 package Controller;
 
 import Model.*;
-import Services.EmailAccountFoldersServices;
-import Services.EmailAccountServices;
-import Services.FolderUpdateServices;
-import Services.MessageRenderServices;
+import Services.*;
 import View.ViewFactory;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
@@ -36,9 +33,8 @@ public class MainController extends AbstractController implements Initializable{
 	private EmailAccountServices emailAccountServices;
 	private FolderUpdateServices folderUpdateServices;
 	private MessageRenderServices messageRenderServices;
+	private SaveAttachmentServices saveAttachmentServices;
 	private EmailAccountFoldersServices emailAccountFoldersServices;
-
-
 
 	@FXML
 	private AnchorPane mainAnchorPane;
@@ -69,10 +65,29 @@ public class MainController extends AbstractController implements Initializable{
 
 	@FXML
 	void readMessageAction(ActionEvent event) {
+		EmailMessageBean message = getModelAccess().getSelectedMessage();
+		if (message != null){
+			boolean value = message.isRead();
+			message.setRead(!value);
+			EmailFolderBean<String> selectedFolder = getModelAccess().getSelectedFolder();
+			if (selectedFolder != null){
+				if(value){
+					selectedFolder.incrementUnreadMessagesCount(1);
+				}else {
+					selectedFolder.decrementUnreadMessagesCount();
+				}
+			}
+		}
 	}
 
 	@FXML
 	void downloadAttachmentBtnAction(ActionEvent event) {
+		EmailMessageBean message = mailTableView.getSelectionModel().getSelectedItem();
+		if (message != null && message.hasAttachment()){
+			saveAttachmentServices.setMessageToDownload(message);
+			saveAttachmentServices.restart();
+		} else
+			JOptionPane.showMessageDialog(null,"Message selected is null or not content attachment");
 	}
 
 	@FXML
@@ -117,6 +132,8 @@ public class MainController extends AbstractController implements Initializable{
 		 */
 
 		messageRenderServices = new MessageRenderServices(messageRender.getEngine());
+		saveAttachmentServices = new SaveAttachmentServices(downloadAttachmentProgressBar,downloadAttachmentLabel);
+
 
 		mailTableView.setRowFactory(e-> new BoldableRowFactory<>());
 		ViewFactory viewfactory = ViewFactory.defaultFactory;

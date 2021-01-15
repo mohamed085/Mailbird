@@ -3,6 +3,7 @@ package Model;
 import javafx.beans.property.SimpleStringProperty;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +69,32 @@ public class EmailMessageBean extends AbstractTableItem{
 		formattedValues.put(returnValue, size);
 		return returnValue;
 		
+	}
+
+	public List<MimeBodyPart> getAttachmentsList() {
+		return attachmentsList;
+	}
+
+	public String getAttachmentsNames() {
+		return attachmentsNames.toString();
+	}
+
+	public void addNewAttachment(MimeBodyPart mimeBodyPart){
+		attachmentsList.add(mimeBodyPart);
+		try {
+			attachmentsNames.append(mimeBodyPart.getFileName() + ";");
+		}catch (MessagingException e){
+			e.printStackTrace();
+		}
+	}
+
+	public boolean hasAttachment(){
+		return attachmentsList.size() > 0 ;
+	}
+
+	public void clearAttachments(){
+		attachmentsList.clear();
+		attachmentsNames.setLength(0);
 	}
 
 	@Override
