@@ -17,10 +17,13 @@ public class EmailDetailsController extends AbstractController implements Initia
 	private MessageRenderServices messageRenderServices;
 
 	@FXML
-	private Label mailSubject,mailFrom;
+	private WebView mailContent;
 
 	@FXML
-	private WebView mailContent;
+	private Label mailSubject;
+
+	@FXML
+	private Label mailFrom;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

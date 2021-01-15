@@ -73,16 +73,16 @@ public class ViewFactory {
 		return initializeScene(MAIN_SCREEN_FXML,mainController);
 	}
 
-	public Scene getEmailDetailsScene(){
+	public Scene getEmailDetailsScene() throws IOException {
 		emailDetailsController = new EmailDetailsController(modelAccess);
 		return initializeScene(EMAIL_DETAILS_FXML,emailDetailsController);
 	}
 
 	public Button setReadStyle(Button button, boolean isRead) {
 		if (isRead)
-			button.setStyle(" -fx-background-color: #aeafaf;\n" + "  -fx-background-radius: 5em;\n" + "  -fx-min-width: 7px;\n" + "  -fx-min-height: 7px;\n" + "  -fx-max-width: 7px;\n" + "  -fx-max-height: 7px;");
-		else
 			button.setStyle(" -fx-background-color: #007a17;\n" + "  -fx-background-radius: 5em;\n" + "  -fx-min-width: 10px;\n" + "  -fx-min-height: 10px;\n" + "  -fx-max-width: 10px;\n" + "  -fx-max-height: 10px;");
+		else
+			button.setStyle(" -fx-background-color: #aeafaf;\n" + "  -fx-background-radius: 5em;\n" + "  -fx-min-width: 7px;\n" + "  -fx-min-height: 7px;\n" + "  -fx-max-width: 7px;\n" + "  -fx-max-height: 7px;");
 		return button;
 	}
 

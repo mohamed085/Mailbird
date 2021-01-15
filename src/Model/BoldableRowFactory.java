@@ -11,7 +11,6 @@ public class BoldableRowFactory<T extends AbstractTableItem> extends TableRow<T>
 	
 	public BoldableRowFactory() {
 		super();
-		
 		bold.addListener((ObservableValue<? extends Boolean> observable, Boolean olValue, Boolean NewValue) ->{
 			if(currentItem != null && currentItem==getItem()){
 				updateItem(getItem(), isEmpty());

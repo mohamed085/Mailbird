@@ -22,7 +22,6 @@ public class EmailMessageBean extends AbstractTableItem{
 	private SimpleStringProperty date;
 	private SimpleStringProperty size;
 	private Message messageReference;
-	private Button markReadButton;
 	private Button markStarredButton;
 	private Button markAttachmentButton;
 
@@ -31,19 +30,17 @@ public class EmailMessageBean extends AbstractTableItem{
 	private List<MimeBodyPart> attachmentsList = new ArrayList<MimeBodyPart>();
 	private StringBuffer attachmentsNames = new StringBuffer();
 
-	public EmailMessageBean(String subject, String from, String date, int size, boolean isRead, Message messageReference) {
+	public EmailMessageBean(String subject, String from, String date, int size, boolean isRead, boolean hasAttachments, Message messageReference) {
 		super(isRead);
 		this.subject = new SimpleStringProperty(subject);
 		this.from = new SimpleStringProperty(from);
 		this.date = new SimpleStringProperty(date);
 		this.size = new SimpleStringProperty(formatSize(size));
 		this.messageReference = messageReference;
-		this.markReadButton = new JFXButton();
-		this.markReadButton = new ViewFactory().setReadStyle(markReadButton , isRead);
 		this.markStarredButton = new JFXButton();
-		this.markStarredButton = new ViewFactory().setStarredStyle(markStarredButton , isRead);
+		this.markStarredButton = new ViewFactory().setStarredStyle(markStarredButton , true);
 		this.markAttachmentButton = new JFXButton();
-		this.markAttachmentButton = new ViewFactory().setReadStyle(markAttachmentButton , isRead);
+		this.markAttachmentButton = new ViewFactory().setReadStyle(markAttachmentButton , false);
 	}
 	
 	public String getFrom(){
@@ -110,16 +107,20 @@ public class EmailMessageBean extends AbstractTableItem{
 		attachmentsNames.setLength(0);
 	}
 
-	public Button getMarkReadButton() {
-		return markReadButton;
-	}
-
 	public Button getMarkStarredButton() {
 		return markStarredButton;
 	}
 
 	public Button getMarkAttachmentButton() {
 		return markAttachmentButton;
+	}
+
+	public void setMarkStarredButton() {
+		this.markStarredButton = new ViewFactory().setStarredStyle(markStarredButton , true);
+	}
+
+	public void setMarkAttachmentButton() {
+		this.markAttachmentButton = new ViewFactory().setReadStyle(markAttachmentButton , true);
 	}
 
 	@Override

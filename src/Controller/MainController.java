@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -66,25 +65,7 @@ public class MainController extends AbstractController implements Initializable{
 	private Label downloadAttachmentLabel;
 
 	@FXML
-	private Button readMessage,downloadAttachmentBtn;
-
-
-	@FXML
-	void readMessageAction(ActionEvent event) {
-		EmailMessageBean message = getModelAccess().getSelectedMessage();
-		if (message != null){
-			boolean value = message.isRead();
-			message.setRead(!value);
-			EmailFolderBean<String> selectedFolder = getModelAccess().getSelectedFolder();
-			if (selectedFolder != null){
-				if(value){
-					selectedFolder.incrementUnreadMessagesCount(1);
-				}else {
-					selectedFolder.decrementUnreadMessagesCount();
-				}
-			}
-		}
-	}
+	private Button downloadAttachmentBtn;
 
 	@FXML
 	void downloadAttachmentBtnAction(ActionEvent event) {
@@ -117,6 +98,7 @@ public class MainController extends AbstractController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		downloadAttachmentLabel.setVisible(false);
 		downloadAttachmentProgressBar.setVisible(false);
+        downloadAttachmentBtn.setVisible(false);
 
 		/** Get user accounts and set in model access First Step */
 		emailAccountServices = new EmailAccountServices();
@@ -190,6 +172,15 @@ public class MainController extends AbstractController implements Initializable{
 		mailTableView.setOnMouseClicked(e->{
 			EmailMessageBean message = mailTableView.getSelectionModel().getSelectedItem();
 			if(message != null){
+				getModelAccess().setSelectedMessage(message);
+				if (message.hasAttachment()) {
+					downloadAttachmentBtn.setVisible(true);
+					message.setMarkAttachmentButton();
+					System.out.println("setMarkAttachmentButton");
+				}
+				else
+					downloadAttachmentBtn.setVisible(false);
+
 				boolean value = message.isRead();
 				if (!value){
 					System.out.println("Message read value : "+value);
@@ -209,37 +200,39 @@ public class MainController extends AbstractController implements Initializable{
 				messageRenderServices.restart();
 				Button button2 = message.getMarkStarredButton();
 				button2.setOnAction(event -> {
-
 				});
 			}
 		});
 
 		showDetails.setOnAction(e->{
-			Scene scene = viewfactory.getEmailDetailsScene();
 			Stage stage = new Stage();
-			stage.setScene(scene);
+			viewFactory = ViewFactory.defaultFactory;
+			try {
+				stage.setScene(viewFactory.getEmailDetailsScene());
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+			stage.setTitle("Mail details");
 			stage.show();
 		});
 
 		deleteMessage.setOnAction(e -> {
 			deleteMessageService = new DeleteMessageService(getModelAccess().getSelectedFolder(), mailTableView.getSelectionModel().getSelectedItem());
 			folderUpdateServices = new FolderUpdateServices(getModelAccess().getFoldersList());
-			emailFolders.getRoot().getChildren().clear();
 			deleteMessageService.start();
-			mainAnchorPane.getScene().getWindow().hide();
-			viewFactory = ViewFactory.defaultFactory;
-			Stage stage = new Stage();
-			try {
-				stage.setScene(viewFactory.getMainScene());
-			} catch (IOException ioException) {
-				ioException.printStackTrace();
-			}
-			stage.setTitle("Mail client application");
-			stage.show();
+			deleteMessageService.setOnSucceeded(event -> {
+				JOptionPane.showMessageDialog(null,"Message deleted");
+				mailTableView.getItems().remove(mailTableView.getSelectionModel().getSelectedItem());
+			});
+			deleteMessageService.setOnFailed(event -> {
+				JOptionPane.showMessageDialog(null,"Message not deleted");
+			});
+			deleteMessageService.setOnCancelled(event -> {
+				JOptionPane.showMessageDialog(null,"Message not deleted");
+			});
 		});
 
 		markStarredCol.setStyle("-fx-alignment: CENTER;");
 		markAttachmentCol.setStyle("-fx-alignment: CENTER;");
-
 	}
 }

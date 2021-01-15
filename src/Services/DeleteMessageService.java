@@ -18,15 +18,6 @@ public class DeleteMessageService extends Service {
     public DeleteMessageService(EmailFolderBean folderBean , EmailMessageBean messageBean) {
         this.messageBean = messageBean;
         this.folderBean = folderBean;
-        setOnSucceeded(event -> {
-            JOptionPane.showMessageDialog(null,"Message deleted");
-        });
-        setOnFailed(event -> {
-            JOptionPane.showMessageDialog(null,"Message not deleted");
-        });
-        setOnCancelled(event -> {
-            JOptionPane.showMessageDialog(null,"Message not deleted");
-        });
     }
 
     @Override
