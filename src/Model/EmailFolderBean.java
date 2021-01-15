@@ -60,7 +60,12 @@ public class EmailFolderBean<T> extends TreeItem<String> {
 	public void addEmail(int index, Message message) throws MessagingException {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy , hh.mm aa");
 		boolean isRead = message.getFlags().contains(Flags.Flag.SEEN);
-		EmailMessageBean emailMessageBean = new EmailMessageBean(message.getSubject(), message.getFrom()[0].toString(), message.getSize(), "", isRead);
+		EmailMessageBean emailMessageBean = new EmailMessageBean(
+				message.getSubject(),
+				message.getFrom()[0].toString(),
+				message.getSentDate().toString(),
+				message.getSize(),
+				isRead,message);
 		if (index < 0){
 			data.add(emailMessageBean);
 		}

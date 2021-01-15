@@ -4,6 +4,7 @@ import Model.*;
 import Services.EmailAccountFoldersServices;
 import Services.EmailAccountServices;
 import Services.FolderUpdateServices;
+import Services.MessageRenderServices;
 import View.ViewFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +35,7 @@ public class MainController extends AbstractController implements Initializable{
 	private EmailAccountFactory emailAccountFactory;
 	private EmailAccountServices emailAccountServices;
 	private FolderUpdateServices folderUpdateServices;
+	private MessageRenderServices messageRenderServices;
 	private EmailAccountFoldersServices emailAccountFoldersServices;
 
 
@@ -114,6 +116,8 @@ public class MainController extends AbstractController implements Initializable{
 		 }
 		 */
 
+		messageRenderServices = new MessageRenderServices(messageRender.getEngine());
+
 		mailTableView.setRowFactory(e-> new BoldableRowFactory<>());
 		ViewFactory viewfactory = ViewFactory.defaultFactory;
 		subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
@@ -158,7 +162,8 @@ public class MainController extends AbstractController implements Initializable{
 			EmailMessageBean message = mailTableView.getSelectionModel().getSelectedItem();
 			if(message != null){
 				getModelAccess().setSelectedMessage(message);
-				messageRender.getEngine().loadContent(message.getContent());
+				messageRenderServices.setMessageToRender(message);
+				messageRenderServices.restart();
 			}
 		});
 		showDetails.setOnAction(e->{
