@@ -31,8 +31,9 @@ public class FetchEmailAccountFoldersServices extends Service<Void> {
         this.foldersRoot = foldersRoot;
         this.emailAccount = emailAccountFactory.createEmailAccount();
         this.modelAccess = modelAccess;
-        this.setOnSucceeded(event -> {
-            NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE--;
+        this.setOnSucceeded(e -> {
+            NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE = 0;
+            System.out.println("NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE in setOnSucceeded : "+NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE);
         });
     }
 
@@ -41,6 +42,8 @@ public class FetchEmailAccountFoldersServices extends Service<Void> {
         return new Task<Void>() {
             @Override
             protected Void call() throws Exception {
+                NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE++;
+                System.out.println("NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE in task : "+NUMBER_OF_FETCHFOLDERSSERVICES_ACTIVE);
                 if (emailAccount != null ) {
                     folders = emailAccount.getStore().getDefaultFolder().list();
                     for (Folder folder:folders){
@@ -77,14 +80,13 @@ public class FetchEmailAccountFoldersServices extends Service<Void> {
                 for (int i = 0 ; i < messageCountEvent.getMessages().length ; i++){
                     Message currentMessage = null;
                     try {
-                        currentMessage = folder.getMessage(folder.getMessageCount() -i );
+                        currentMessage = folder.getMessage(folder.getMessageCount() - i);
                         item.addEmail(0,currentMessage);
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
                 }
             }
-
             @Override
             public void messagesRemoved(MessageCountEvent messageCountEvent) {
 

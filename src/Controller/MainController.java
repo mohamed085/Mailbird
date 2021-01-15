@@ -139,6 +139,7 @@ public class MainController extends AbstractController implements Initializable{
 		ViewFactory viewfactory = ViewFactory.defaultFactory;
 		subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("subject"));
 		fromCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("from"));
+		dateSentCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("date"));
 		sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));		
 		sizeCol.setComparator(new Comparator<String>() {			
 			Integer int1, int2;			

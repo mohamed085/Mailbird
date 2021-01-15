@@ -16,27 +16,23 @@ public class EmailFolderBean<T> extends TreeItem<String> {
 	private boolean topElement  = false;
 	private int unreadMessageCount;
 	private String name;
-	private String completeName;
+	private String completeFolderName;
 	private ObservableList<EmailMessageBean> data = FXCollections.observableArrayList();
-	
-	/**
-	 * Constructor for top elements
-	 * @param value
-	 */
+
 	
 	public EmailFolderBean(String value){
 		super(value, ViewFactory.defaultFactory.resolveIcon(value));
 		this.name = value;
-		this.completeName = value;
+		this.completeFolderName = value;
 		data = null;
 		topElement = true;
 		this.setExpanded(true);
 	}
 	
-	public EmailFolderBean(String value, String compleName){
+	public EmailFolderBean(String value, String completeFolderName){
 		super(value, ViewFactory.defaultFactory.resolveIcon(value));
 		this.name = value;
-		this.completeName = compleName;
+		this.completeFolderName = completeFolderName;
 	}
 	
 	private void updateValue(){
@@ -63,7 +59,7 @@ public class EmailFolderBean<T> extends TreeItem<String> {
 		EmailMessageBean emailMessageBean = new EmailMessageBean(
 				message.getSubject(),
 				message.getFrom()[0].toString(),
-				message.getSentDate().toString(),
+				dateFormat.format(message.getReceivedDate()) ,
 				message.getSize(),
 				isRead,message);
 		if (index < 0){
@@ -79,14 +75,20 @@ public class EmailFolderBean<T> extends TreeItem<String> {
 	public boolean isTopElement(){
 		return topElement;
 	}
-	
-	public ObservableList<EmailMessageBean> getData(){
+
+	public Boolean getTopElement() {
+		return topElement;
+	}
+
+	public int getUnreadMessageCount() {
+		return unreadMessageCount;
+	}
+
+	public String getCompleteFolderName() {
+		return completeFolderName;
+	}
+
+	public ObservableList<EmailMessageBean> getData() {
 		return data;
 	}
-	
-	
-	
-	
-	
-	
 }
