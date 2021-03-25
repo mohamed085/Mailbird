@@ -14,6 +14,7 @@ public class ModelAccess {
     private EmailAccountBean emailAccountBean;
 
     private List<Folder> foldersList = new ArrayList<Folder>();
+
     private Map<String, EmailAccountFactory> userAccounts = new HashMap<String, EmailAccountFactory>();
     private List<EmailAccountFactory> userAccountsFactory = new ArrayList<>();
     private ObservableList<String> userAccountsAddresses = FXCollections.observableArrayList();
@@ -36,7 +37,7 @@ public class ModelAccess {
 
     public void setUserAccounts(EmailAccountFactory userAccount) {
         emailAccountBean = userAccount.createEmailAccount();
-        userAccounts.put(emailAccountBean.getEmailAddress(),userAccount);
+        userAccounts.put(emailAccountBean.getEmailAddress(), userAccount);
         userAccountsAddresses.add(emailAccountBean.getEmailAddress());
         userAccountsFactory.add(userAccount);
     }
@@ -71,6 +72,10 @@ public class ModelAccess {
 
     public void addFolder(Folder folder){
         foldersList.add(folder);
+    }
+
+    public EmailAccountFactory getEmailAccountByAddress(String address){
+        return userAccounts.get(address);
     }
 
 }

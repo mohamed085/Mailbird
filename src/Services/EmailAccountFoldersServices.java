@@ -31,11 +31,14 @@ public class EmailAccountFoldersServices extends Service<Integer> {
             protected Integer call() throws Exception {
                 emailAccountFactory = new EmailAccountFactory(emailAddress,emailPassword,emailType);
                 emailAccountBean = emailAccountFactory.createEmailAccount();
+                System.out.println("1: "+EmailAccountConstants.LOGIN_STATE_SUCCEEDED);
+                System.out.println("2: "+emailAccountBean.getLoginState());
                 if (emailAccountBean.getLoginState() == EmailAccountConstants.LOGIN_STATE_SUCCEEDED){
+                    System.out.println("ads");
                     EmailFolderBean<String> emailFolderBean = new EmailFolderBean<>(emailAddress);
                     folders.getChildren().add(emailFolderBean);
                     FetchEmailAccountFoldersServices fetchEmailAccountFoldersServices = new FetchEmailAccountFoldersServices(emailFolderBean,emailAccountFactory,modelAccess);
-                    fetchEmailAccountFoldersServices.start();
+                        fetchEmailAccountFoldersServices.start();
                 }
                 return emailAccountBean.getLoginState();
             }

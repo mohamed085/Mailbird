@@ -22,20 +22,27 @@ public class OutlookAccount implements EmailAccountBean {
         System.out.println("OutlookAccount");
 
         properties = new Properties();
-        properties.setProperty("mail.store.protocol", "imaps");
+        properties.put("mail.store.protocol", "imaps");
         //extra codes required for reading OUTLOOK mails during IMAP-start
-        properties.setProperty("mail.imaps.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        properties.setProperty("mail.imaps.socketFactory.fallback", "false");
-        properties.setProperty("mail.imaps.port", "993");
-        properties.setProperty("mail.imaps.socketFactory.port", "993");
-        
-        Session emailSession = Session.getDefaultInstance(properties);
+        properties.put("mail.imaps.port", "993");
+        properties.put("mail.imaps.host", "outlook.office365.com");
+        properties.put("mail.smtp.host", "smtp.office365.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("incomingHost", "outlook.office365.com");
+        properties.put("outgoingHost", "smtp.office365.com");
 
-        //create the POP3 store object and connect with the pop server
+        Authenticator auth = new Authenticator(){
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication(OutlookAddress, OutlookPassword);
+            }
+        };
+
+        session = Session.getInstance(properties, auth);
         try {
-            store = emailSession.getStore("imaps");
-            store.connect("outlook.office365.com", OutlookAddress, OutlookPassword);
-            System.out.println("EmailAccountBean constructed succesufully!!!");
+            this.store = session.getStore();
+            store.connect(properties.getProperty("incomingHost"), OutlookAddress, OutlookPassword);
+            System.out.println("Outlook account constructed successfully!!!");
             loginState = EmailAccountConstants.LOGIN_STATE_SUCCEEDED;
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +76,13 @@ public class OutlookAccount implements EmailAccountBean {
     }
 
     @Override
+    public Properties getProperties() {
+        return properties;
+    }
+
+    @Override
     public int getLoginState() {
         return loginState;
     }
+
 }

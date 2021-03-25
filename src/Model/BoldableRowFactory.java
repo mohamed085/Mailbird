@@ -30,7 +30,7 @@ public class BoldableRowFactory<T extends AbstractTableItem> extends TableRow<T>
 		super.updateItem(item, empty);
 		if(item !=null && !item.isRead()){
 			setStyle("-fx-font-weight: bold");
-		}else{
+		} else{
 			setStyle("");
 		}
 		

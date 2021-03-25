@@ -21,7 +21,7 @@ public class FolderUpdateServices extends Service<Void> {
             protected Void call() throws Exception {
                 for (;;){
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(50000);
                         System.out.println("||||||||||||||||||Check||||||||||||||||||");
                         if (FetchEmailAccountFoldersServices.noServicesAction()){
                             System.out.println("Checked Folder");

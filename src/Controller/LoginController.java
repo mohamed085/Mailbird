@@ -2,7 +2,7 @@ package Controller;
 
 import Model.ModelAccess;
 import Model.UserBean;
-import Services.UserServices;
+import Services.UserServicesImp;
 import View.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,8 +32,8 @@ public class LoginController extends AbstractController{
 
     @FXML
     void loginAction(ActionEvent event) throws IOException {
-        UserBean userBean = new UserBean(usernameTextFiled.getText(),passwordTextFiled.getText());
-        UserServices userServices = new UserServices();
+        UserBean userBean = new UserBean(usernameTextFiled.getText(), passwordTextFiled.getText());
+        UserServicesImp userServices = new UserServicesImp();
         currentUser = userServices.searchForUser(userBean);
         if (currentUser != null){
             getModelAccess().setUser(currentUser);

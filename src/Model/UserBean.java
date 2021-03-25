@@ -34,7 +34,7 @@ public class UserBean {
     @Override
     public String toString() {
         return "UserBean{" +
-                "Username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

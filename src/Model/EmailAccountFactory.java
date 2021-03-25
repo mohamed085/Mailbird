@@ -7,7 +7,6 @@ public class EmailAccountFactory implements EmailAccountAbstractFactory<EmailAcc
     private String type;
     private int UserID;
 
-
     public EmailAccountFactory(String emailAddress, String emailPassword, String type) {
         this.emailAddress = emailAddress;
         this.emailPassword = emailPassword;

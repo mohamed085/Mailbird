@@ -20,7 +20,7 @@ public class EmailAccountDAO {
         PreparedStatement pre;
         Connection connection = DBConnection.getConnection();
         try {
-            pre = connection.prepareStatement("insert into EmailAccount (emailAddress, emailPassword, type, userId) values (?,?,?,?);");
+            pre = connection.prepareStatement("INSERT INTO emailAccount (emailAddress, emailPassword, type, userID) values (?,?,?,?);");
             pre.setString(1,emailAccountBean.getEmailAddress());
             pre.setString(2,emailAccountBean.getEmailPassword());
             pre.setString(3,emailAccountBean.getType());
@@ -42,7 +42,7 @@ public class EmailAccountDAO {
         ResultSet resultSet = null;
         Connection connection = DBConnection.getConnection();
         try {
-            pre = connection.prepareStatement("SELECT * from EmailAccount WHERE userId=? ");
+            pre = connection.prepareStatement("SELECT * from emailAccount WHERE userID=? ");
             pre.setInt(1,userID);
             resultSet = pre.executeQuery();
             while (resultSet.next()){

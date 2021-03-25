@@ -30,12 +30,14 @@ public class GmailAccount implements EmailAccountBean {
         properties.put("mail.smtps.auth", "true");
         properties.put("incomingHost", "imap.gmail.com");
         properties.put("outgoingHost", "smtp.gmail.com");
-        Session emailSession = Session.getDefaultInstance(properties);
 
-        //create the IMAP store object and connect with the pop server
+
+        //Connecting:
+        Session session = Session.getDefaultInstance(properties, null);
         try {
-            store = emailSession.getStore("imaps");
-            store.connect(host, GmailAddress, GmailPassword);
+            this.store = session.getStore();
+            store = session.getStore("imaps");
+            store.connect(properties.getProperty("incomingHost"),GmailAddress, GmailPassword);
             System.out.println("EmailAccountBean constructed successfully!!!");
             loginState = EmailAccountConstants.LOGIN_STATE_SUCCEEDED;
         } catch (Exception e) {
@@ -67,6 +69,11 @@ public class GmailAccount implements EmailAccountBean {
     @Override
     public Session getSession() {
         return session;
+    }
+
+    @Override
+    public Properties getProperties() {
+        return properties;
     }
 
     @Override

@@ -65,15 +65,13 @@ public class EmailMessageBean extends AbstractTableItem{
 
 	private String formatSize(int size){
 		String returnValue;
-		if(size<= 0){
-			returnValue =  "0";}
-		
-		else if(size<1024){
+		if (size <= 0){
+			returnValue =  "0";
+		} else if (size < 1024){
 			returnValue = size + " B";
-		}
-		else if(size < 1048576){
+		} else if (size < 1048576){
 			returnValue = size/1024 + " kB";
-		}else{
+		} else {
 			returnValue = size/1048576 + " MB";
 		}
 		formattedValues.put(returnValue, size);

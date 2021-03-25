@@ -26,7 +26,7 @@ public class ViewFactory {
 	private final String MAIN_SCREEN_FXML = "Main.fxml";
 	private final String EMAIL_DETAILS_FXML = "EmailDetails.fxml";
 	private final String COMPOSE_SCREEN_FXML = "ComposeMessage.fxml";
-	
+
 	private ModelAccess modelAccess = new ModelAccess();
 
 	private AbstractController addNewAccountController;
@@ -35,8 +35,6 @@ public class ViewFactory {
 	private AbstractController mainController;
 	private AbstractController emailDetailsController;
 	private AbstractController composeMessageController;
-
-
 
 	private Scene initializeScene(String FXMLPath, AbstractController controller){
 		FXMLLoader loader;
@@ -55,28 +53,35 @@ public class ViewFactory {
 
 	public Scene getLoginScene() throws IOException {
 		loginController = new LoginController(modelAccess);
-		return initializeScene(LOGIN_LAYOUT,loginController);
+		return initializeScene(LOGIN_LAYOUT, loginController);
 	}
 
 	public Scene getRegisterScene() throws IOException {
 		registerController = new RegisterController(modelAccess);
-		return initializeScene(REGISTER_LAYOUT,registerController);
+		return initializeScene(REGISTER_LAYOUT, registerController);
 	}
 
 	public Scene getAddNewAccount() throws IOException {
 		addNewAccountController = new AddNewAccountController(modelAccess);
-		return initializeScene(ADD_NEW_ACCOUNT_LAYOUT,addNewAccountController);
+		return initializeScene(ADD_NEW_ACCOUNT_LAYOUT, addNewAccountController);
 	}
 
 	public Scene getMainScene() throws IOException {
 		mainController = new MainController(modelAccess);
-		return initializeScene(MAIN_SCREEN_FXML,mainController);
+		return initializeScene(MAIN_SCREEN_FXML, mainController);
 	}
 
 	public Scene getEmailDetailsScene() throws IOException {
 		emailDetailsController = new EmailDetailsController(modelAccess);
-		return initializeScene(EMAIL_DETAILS_FXML,emailDetailsController);
+		return initializeScene(EMAIL_DETAILS_FXML, emailDetailsController);
 	}
+
+	public Scene getComposeMessage() throws IOException {
+		composeMessageController = new ComposeMessageController(modelAccess);
+		return initializeScene(COMPOSE_SCREEN_FXML, composeMessageController);
+	}
+
+
 
 	public Button setReadStyle(Button button, boolean isRead) {
 		if (isRead)
@@ -101,25 +106,25 @@ public class ViewFactory {
 		String lowerCaseTreeItemValue = treeItemValue.toLowerCase();
 		ImageView returnIcon;
 		try {
-			if(lowerCaseTreeItemValue.contains("inbox")){
+			if (lowerCaseTreeItemValue.contains("inbox")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/inbox.png")));
-			} else if(lowerCaseTreeItemValue.contains("sent")){
+			} else if (lowerCaseTreeItemValue.contains("sent")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/sent.png")));
-			} else if(lowerCaseTreeItemValue.contains("spam")){
+			} else if (lowerCaseTreeItemValue.contains("spam")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/spam.png")));
-			} else if(lowerCaseTreeItemValue.contains("@")) {
+			} else if (lowerCaseTreeItemValue.contains("@")) {
 				returnIcon = new ImageView(new Image(getClass().getResourceAsStream("Images/email.png")));
-			} else if(lowerCaseTreeItemValue.contains("important")){
+			} else if (lowerCaseTreeItemValue.contains("important")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/important.png")));
-			} else if(lowerCaseTreeItemValue.contains("drafts")){
+			} else if (lowerCaseTreeItemValue.contains("drafts")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/drafts.png")));
-			}else if(lowerCaseTreeItemValue.contains("trash")){
+			} else if (lowerCaseTreeItemValue.contains("trash")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/trash.png")));
-			}else if(lowerCaseTreeItemValue.contains("starred")){
+			} else if (lowerCaseTreeItemValue.contains("starred")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/starred.png")));
-			}else if(lowerCaseTreeItemValue.contains("all mail")){
+			} else if (lowerCaseTreeItemValue.contains("all mail")){
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/allMail.png")));
-			}else{
+			} else {
 				returnIcon= new ImageView(new Image(getClass().getResourceAsStream("Images/folder.png")));
 			}
 		} catch (NullPointerException e) {

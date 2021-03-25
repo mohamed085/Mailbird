@@ -13,7 +13,7 @@ public class UserDAO {
         PreparedStatement pre;
         Connection connection = DBConnection.getConnection();
         try {
-            pre = connection.prepareStatement("insert into User (username, password) values (?,?);");
+            pre = connection.prepareStatement("insert into user (username, password) values (?,?);");
             pre.setString(1,user.getUsername());
             pre.setString(2,user.getPassword());
             pre.executeUpdate();
@@ -30,7 +30,7 @@ public class UserDAO {
         ResultSet resultSet = null;
         Connection connection = DBConnection.getConnection();
         try {
-            pre = connection.prepareStatement("SELECT * from User WHERE username=? AND password=?");
+            pre = connection.prepareStatement("SELECT * from user WHERE username=? AND password=?");
             pre.setString(1,user.getUsername());
             pre.setString(2,user.getPassword());
             resultSet = pre.executeQuery();
@@ -39,7 +39,7 @@ public class UserDAO {
                 return userBean;
             }else
                 return null;
-        }catch (Exception ex){
+        } catch (Exception ex){
             ex.printStackTrace();
             return null;
         }

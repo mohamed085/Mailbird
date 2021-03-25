@@ -2,7 +2,7 @@ package Controller;
 
 import Model.ModelAccess;
 import Model.UserBean;
-import Services.UserServices;
+import Services.UserServicesImp;
 import View.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,9 +31,9 @@ public class RegisterController extends AbstractController{
 
     @FXML
     void RegisterAction(ActionEvent event) throws IOException {
-        UserBean userBean = new UserBean(newUsernameTextFiled.getText(),newPasswordTextFiled.getText());
+        UserBean userBean = new UserBean(newUsernameTextFiled.getText(), newPasswordTextFiled.getText());
         System.out.println(userBean.toString());
-        UserServices userServices =new UserServices();
+        UserServicesImp userServices = new UserServicesImp();
         if (userServices.addNewUSer(userBean)){
             currentUser = userServices.searchForUser(userBean);
             getModelAccess().setUser(currentUser);

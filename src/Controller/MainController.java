@@ -29,7 +29,7 @@ public class MainController extends AbstractController implements Initializable{
 	private EmailAccountBean emailAccountBean;
 	private SeenMessageService seenMessageService;
 	private EmailAccountFactory emailAccountFactory;
-	private EmailAccountServices emailAccountServices;
+	private EmailAccountServicesImp emailAccountServices;
 	private FolderUpdateServices folderUpdateServices;
 	private DeleteMessageService deleteMessageService;
 	private MessageRenderServices messageRenderServices;
@@ -79,6 +79,11 @@ public class MainController extends AbstractController implements Initializable{
 
 	@FXML
 	void composeAction(ActionEvent event) throws IOException {
+		stage = new Stage();
+		viewFactory = ViewFactory.defaultFactory;
+		stage.setScene(viewFactory.getComposeMessage());
+		stage.setTitle("Send mail");
+		stage.show();
 	}
 
 	@FXML
@@ -101,7 +106,7 @@ public class MainController extends AbstractController implements Initializable{
         downloadAttachmentBtn.setVisible(false);
 
 		/** Get user accounts and set in model access First Step */
-		emailAccountServices = new EmailAccountServices();
+		emailAccountServices = new EmailAccountServicesImp();
 		ObservableList<EmailAccountFactory> currentUserAccounts = emailAccountServices.AllAccountForUser(getModelAccess().getUser().getUserID());
 		for (EmailAccountFactory emailAccountFactory:currentUserAccounts){
 			getModelAccess().setUserAccounts(emailAccountFactory);
@@ -120,7 +125,7 @@ public class MainController extends AbstractController implements Initializable{
 		 */
 
 		messageRenderServices = new MessageRenderServices(messageRender.getEngine());
-		saveAttachmentServices = new SaveAttachmentServices(downloadAttachmentProgressBar,downloadAttachmentLabel);
+		saveAttachmentServices = new SaveAttachmentServices(downloadAttachmentProgressBar, downloadAttachmentLabel);
 		downloadAttachmentProgressBar.progressProperty().bind(saveAttachmentServices.progressProperty());
 
 		
@@ -130,8 +135,8 @@ public class MainController extends AbstractController implements Initializable{
 		fromCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("from"));
 		dateSentCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("date"));
 		sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, String>("size"));
-		markStarredCol.setCellValueFactory(new PropertyValueFactory<>("markStarredButton"));
-		markAttachmentCol.setCellValueFactory(new PropertyValueFactory<>("markAttachmentButton"));
+		markStarredCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, Button>("markStarredButton"));
+		markAttachmentCol.setCellValueFactory(new PropertyValueFactory<EmailMessageBean, Button>("markAttachmentButton"));
 		sizeCol.setComparator(new Comparator<String>() {			
 			Integer int1, int2;			
 			@Override
@@ -150,6 +155,7 @@ public class MainController extends AbstractController implements Initializable{
 		/** Start to fetch accounts folders */
 		for (EmailAccountFactory emailAccountFactory: getModelAccess().getUserAccountsFactory()){
 			emailAccountFoldersServices = new EmailAccountFoldersServices (emailAccountFactory,root,getModelAccess());
+			System.out.println("Start");
 			emailAccountFoldersServices.start();
 		}
 

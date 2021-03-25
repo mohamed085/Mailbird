@@ -3,7 +3,7 @@ package Controller;
 import Model.EmailAccountBean;
 import Model.EmailAccountFactory;
 import Model.ModelAccess;
-import Services.EmailAccountServices;
+import Services.EmailAccountServicesImp;
 import View.ViewFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class AddNewAccountController extends AbstractController implements Initializable {
 
     ViewFactory viewFactory;
-    EmailAccountServices emailAccountServices;
+    EmailAccountServicesImp emailAccountServices;
 
     @FXML
     private AnchorPane addNewAccountAnchorPane;
@@ -41,7 +41,7 @@ public class AddNewAccountController extends AbstractController implements Initi
         EmailAccountFactory newEmail = new EmailAccountFactory(usernameTextFiled.getText(), passwordTextFiled.getText(), AccountType.getValue());
         EmailAccountBean emailAccountBean = newEmail.createEmailAccount();
         if (emailAccountBean != null){
-            emailAccountServices = new EmailAccountServices();
+            emailAccountServices = new EmailAccountServicesImp();
             emailAccountServices.addNewAccount(getModelAccess().getUser().getUserID(),newEmail);
             addNewAccountAnchorPane.getScene().getWindow().hide();
             viewFactory = ViewFactory.defaultFactory;
